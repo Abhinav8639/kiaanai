@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const res = await fetch('http://147.93.108.56/task/webhook.php');
+        const res = await fetch('http://localhost/task/task/config/config.php');
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -39,7 +39,7 @@ const App = () => {
         const meetingAgentId = 'agent_01jwb83twreb3s2mm92rv4y467';
 
         // Decrypt webhookUrl (for demonstration; since we can't use OpenSSL directly, we'll use the provided value)
-        const webhookUrl = 'http://147.93.108.56/task/webhook.php'; // Directly using provided value
+        const webhookUrl = 'http://localhost/task/task/config/webhook.php'; // Directly using provided value
 
         setConfig({
           chatAgentId,
