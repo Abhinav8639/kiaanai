@@ -8,43 +8,34 @@ const App = () => {
   const [config, setConfig] = useState(null);
   const [error, setError] = useState(null);
 
-  // Decryption function (for demonstration; in production, use a secure method)
-  const decryptData = (encryptedData, key) => {
-    try {
-      const [encrypted, iv] = atob(encryptedData).split('::');
-      return opensslDecrypt(encrypted, 'aes-256-cbc', key, 0, iv);
-    } catch (err) {
-      console.error('Decryption error:', err);
-      return null;
-    }
-  };
-
-  // Since OpenSSL decryption isn't directly available in JavaScript, we'll use the agent ID directly
-  // In production, you'd use a library like 'crypto-js' or a server-side proxy for decryption
-
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const res = await fetch('http://localhost/task/task/config/config.php');
+        const res = await fetch('http://147.93.108.56/task/webhook.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // Match PHP's expected format
+          },
+          body: new URLSearchParams({
+            message: 'hello', // Send 'message' field as expected by webhook.php
+          }).toString(),
+        });
+
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
+
         const data = await res.json();
-        if (!data.chatAgentId || !data.meetingAgentId || !data.webhookUrl) {
-          throw new Error('Invalid config: Missing required fields');
-        }
+        console.log('Webhook response:', data); // Debug the response
 
-        // Use the agent ID directly as per your request
-        const chatAgentId = 'agent_01jwb83twreb3s2mm92rv4y467';
-        const meetingAgentId = 'agent_01jwb83twreb3s2mm92rv4y467';
-
-        // Decrypt webhookUrl (for demonstration; since we can't use OpenSSL directly, we'll use the provided value)
-        const webhookUrl = 'http://localhost/task/task/config/webhook.php'; // Directly using provided value
-
+        // Temporarily bypass strict validation to test the response
+        // Replace with actual validation once webhook.php is updated
         setConfig({
-          chatAgentId,
-          meetingAgentId,
-          webhookUrl,
+
+          chatAgentId: 'agent_01jwc42yt6e6rvb7hqgqyt6gj2', // Fallback until backend provides these
+          meetingAgentId: 'agent_01jwc42yt6e6rvb7hqgqyt6gj2',
+          webhookUrl: 'http://147.93.108.56/task/webhook.php',
+          response: data.response || 'No response from webhook',
         });
       } catch (err) {
         console.error('Error fetching config:', err);
@@ -77,13 +68,6 @@ const App = () => {
       {isPanelOpen && <Panel config={config} togglePanel={togglePanel} />}
     </div>
   );
-};
-
-// Mock OpenSSL decryption (not used here since we're using the agent ID directly)
-const opensslDecrypt = (encrypted, cipher, key, options, iv) => {
-  // In production, use a library like 'crypto-js' for decryption
-  // This is a placeholder to show where decryption would happen
-  return encrypted;
 };
 
 export default App;

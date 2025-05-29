@@ -11,8 +11,8 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
 // Retrieve environment variables
-$chatAgentId = $_ENV['CHAT_AGENT_ID'] ?? 'agent_01jwb83twreb3s2mm92rv4y467';
-$meetingAgentId = $_ENV['MEETING_AGENT_ID'] ?? 'agent_01jwb83twreb3s2mm92rv4y467';
+$chatAgentId = $_ENV['CHAT_AGENT_ID'] ?? 'agent_01jwc42yt6e6rvb7hqgqyt6gj2';
+$meetingAgentId = $_ENV['MEETING_AGENT_ID'] ?? 'agent_01jwc42yt6e6rvb7hqgqyt6gj2;
 $webhookUrl = $_ENV['WEBHOOK_URL'] ?? 'http://147.93.108.56/task/webhook.php';
 
 // Encryption function (for demonstration; use a secure method in production)

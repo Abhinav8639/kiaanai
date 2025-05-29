@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useConversation } from '@11labs/react';
 
-const ELEVENLABS_API_KEY = 'sk_401ed908bf650d683b38bd0db10ff6507dbec057961bcbd4';
+const ELEVENLABS_API_KEY = 'sk_e036e2d0a3cbae44b85dd27a1aa895be89ed2fd55a8e0418';
 
 const Meeting = ({ agentId, onTabChange }) => {
   const [messages, setMessages] = useState([]);
