@@ -1,6 +1,16 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+
+// Allow only your Vercel frontend (more secure than *)
+header('Access-Control-Allow-Origin: https://your-vercel-app.vercel.app');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+// Handle OPTIONS preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -12,7 +22,7 @@ $dotenv->load();
 
 // Retrieve environment variables
 $chatAgentId = $_ENV['CHAT_AGENT_ID'] ?? 'agent_01jwc42yt6e6rvb7hqgqyt6gj2';
-$meetingAgentId = $_ENV['MEETING_AGENT_ID'] ?? 'agent_01jwc42yt6e6rvb7hqgqyt6gj2;
+$meetingAgentId = $_ENV['MEETING_AGENT_ID'] ?? 'agent_01jwc42yt6e6rvb7hqgqyt6gj2';
 $webhookUrl = $_ENV['WEBHOOK_URL'] ?? 'http://147.93.108.56/task/webhook.php';
 
 // Encryption function (for demonstration; use a secure method in production)
